@@ -96,6 +96,16 @@ router.get("/loggedin", (req, res, next) => {
   res.status(403).json({ message: "Unauthorized" });
 });
 
+router.get("/users", (req, res, next)=> {
+  User.find()
+  .then(allUsers => {
+    res.json(allUsers)
+  })
+  .catch(err => {
+    res.json(err);
+  })
+})
+
 router.post("/follow/", (req, res, next) => {
   User.findOne({ username: req.body.username }, (err, user) => {
     if (user.followers.includes(req.user._id)) {
