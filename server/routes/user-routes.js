@@ -38,7 +38,7 @@ router.post("/signup", (req, res, next) => {
     const hashPass = bcrypt.hashSync(password, salt);
     const aNewUser = new User({
       username: username,
-      password: hashPass,
+      password: hashPass
     });
 
     aNewUser.save(err => {
@@ -68,8 +68,6 @@ router.post("/login", (req, res, next) => {
       return;
     }
     if (!theUser) {
-      // "failureDetails" contains the error messages
-      // from our logic in "LocalStrategy" { message: '...' }.
       res.status(401).json(failureDetails);
       return;
     }
@@ -96,17 +94,17 @@ router.get("/loggedin", (req, res, next) => {
   res.status(403).json({ message: "Unauthorized" });
 });
 
-router.get("/users", (req, res, next)=> {
+router.get("/users", (req, res, next) => {
   User.find()
-  .then(allUsers => {
-    res.json(allUsers)
-  })
-  .catch(err => {
-    res.json(err);
-  })
-})
+    .then(allUsers => {
+      res.json(allUsers);
+    })
+    .catch(err => {
+      res.json(err);
+    });
+});
 
-router.post("/follow/", (req, res, next) => {
+router.post("/follow", (req, res, next) => {
   User.findOne({ username: req.body.username }, (err, user) => {
     if (user.followers.includes(req.user._id)) {
       res.status(500).json({ message: "You are already following this user" });
@@ -139,7 +137,7 @@ router.post("/follow/", (req, res, next) => {
   });
 });
 
-router.post("/unfollow/", (req, res, next) => {
+router.post("/unfollow", (req, res, next) => {
   User.findOne({ username: req.body.username }, (err, user) => {
     if (!user.followers.includes(req.user._id)) {
       res.status(500).json({ message: "You are not following this user" });

@@ -7,7 +7,7 @@ function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     next();
   } else {
-    res.status(403).json({ error: "not logged in" });
+    res.status(403).json({ message: "not logged in" });
   }
 }
 
@@ -16,7 +16,6 @@ function expire(req, res, next){
 }
 
 router.post("/", (req, res, next) => {
-  // console.log(req.user)
   Wisp.create({
     content: req.body.content,
     creator: req.user._id
@@ -29,7 +28,7 @@ router.post("/", (req, res, next) => {
     });
 });
 
-router.get("/", isLoggedIn, (req, res, next) => {
+router.get("/dashboard", isLoggedIn, (req, res, next) => {
   console.log("user", req.user);
   Wisp.find({
     $or: [{ creator: { $in: req.user.following } }, { creator: req.user._id }]
@@ -44,36 +43,36 @@ router.get("/", isLoggedIn, (req, res, next) => {
     });
 });
 
-router.get("/wisp/:id", (req, res, next) => {
-  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-    res.status(400).json({ message: "Specified id is not valid" });
-    return;
-  }
-  Wisp.findById(req.params.id)
-    .populate("creator")
-    .then(response => {
-      res.status(200).json(response);
-    })
-    .catch(err => {
-      res.json(err);
-    });
-});
+// router.get("/wisp/:id", (req, res, next) => {
+//   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+//     res.status(400).json({ message: "Specified id is not valid" });
+//     return;
+//   }
+//   Wisp.findById(req.params.id)
+//     .populate("creator")
+//     .then(response => {
+//       res.status(200).json(response);
+//     })
+//     .catch(err => {
+//       res.json(err);
+//     });
+// });
 
-router.put("/wisp/:id", (req, res, next) => {
-  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-    res.status(400).json({ message: "Specified id is not valid" });
-    return;
-  }
-  Wisp.findByIdAndUpdate(req.params.id, req.body)
-    .then(() => {
-      res.json({
-        message: `Wisp with ${req.params.id} is updated successfully.`
-      });
-    })
-    .catch(err => {
-      res.json(err);
-    });
-});
+// router.put("/wisp/:id", (req, res, next) => {
+//   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+//     res.status(400).json({ message: "Specified id is not valid" });
+//     return;
+//   }
+//   Wisp.findByIdAndUpdate(req.params.id, req.body)
+//     .then(() => {
+//       res.json({
+//         message: `Wisp with ${req.params.id} is updated successfully.`
+//       });
+//     })
+//     .catch(err => {
+//       res.json(err);
+//     });
+// });
 
 router.delete("/wisp/:id", (req, res, next) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
