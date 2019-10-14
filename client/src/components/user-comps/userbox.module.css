@@ -1,0 +1,60 @@
+.wrapper {
+  display: flex;
+  border-radius: 7px;
+  border: 1px solid lightgray;
+  box-shadow: 2px 2px 40px 2px;
+  margin: 1.5em 3em;
+}
+
+.profileImage {
+  flex: 1;
+  padding: 1.5em 0;
+}
+
+.image {
+  height: 200px;
+  width: 200px;
+  /* background: orange; */
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 50%;
+}
+
+.profileInfo {
+  flex: 3;
+  align-self: center;
+  display: flex;
+}
+
+.follow {
+  flex: 1;
+  margin: 10px;
+  align-self: center;
+}
+
+.info {
+  flex: 8;
+}
+
+.follow button {
+  background: blue;
+  border: none;
+  padding: 5px 10px;
+  color: whitesmoke;
+  width: 120px;
+  border-radius: 5px;
+  transition: all 0.3s ease-in;
+}
+
+.follow button:active {
+  outline: none;
+}
+
+.follow button:visited {
+  outline: none;
+}
+
+.unfollow {
+  background: red;
+  color: white;
+}

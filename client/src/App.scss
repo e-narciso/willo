@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css?family=Text+Me+One&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+.nuisance{
+  overflow: hidden !important;
+  position: relative;
+  height: 100vh;
+}
+
+@media screen and (max-width: 450px){
+  .nuisance{
+      overflow: hidden !important;
+      position: relative;
+      height: 100vh;
+  }
+}
+
+body {
+  font-family: 'Text Me One', sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+}
+
+.App-header {
+  /* background-color: #282c34; */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #09d3ac;
+}
+
+.background {
+  width: 100vw;
+  height: 100vh;
+  background-image: linear-gradient(to top,#25093f 0%, #4f2a57 100%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: top;
+  position: absolute;
+  z-index: -5;
+}
+
+$particleSize: 2vmin;
+$animationDuration: 6s;
+$amount: 50;
+.background span {
+  width: $particleSize;
+  height: $particleSize;
+  border-radius: $particleSize;
+  backface-visibility: hidden;
+  position: absolute;
+  // overflow: hidden;
+  animation-name: move;
+  animation-duration: $animationDuration;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  $colors: (
+    rgb(255, 240, 157),
+    rgb(243, 176, 88),
+    rgb(228, 84, 84),
+    rgb(236, 106, 46),
+    rgb(241, 83, 83),
+    rgb(202, 53, 110),
+    rgb(85, 53, 202),
+  );
+  @for $i from 1 through $amount {
+    &:nth-child(#{$i}) {
+      color: nth($colors, random(length($colors)));
+      top: random(100) * 1%;
+      left: random(100) * 1%;
+      animation-duration: (random($animationDuration * 10) / 10) * 1s + 10s;
+      animation-delay: random(($animationDuration + 10s) * 10) / 10 * -1s;
+      transform-origin: (random(50) - 25) * 1vw (random(50) - 25) * 1vh;
+      $blurRadius: (random() + 0.5) * $particleSize * 0.5;
+      $x: if(random() > 0.5, -1, 1);
+      box-shadow: ($particleSize * 2 * $x) 0 $blurRadius currentColor;
+    }
+  }
+}
+
+@keyframes move {
+  100% {
+    transform: translate3d(0, 0, 1px) rotate(360deg);
+  }
+}

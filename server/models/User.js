@@ -4,8 +4,10 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema(
   {
     username: String,
+    displayName: {type: String, default: "Hinkypunk"},
     password: String,
     image: String,
+    bio: String,
     following: [{ type: Schema.ObjectId, ref: 'User' }],
     followers: [{ type: Schema.ObjectId, ref: 'User' }],
   },

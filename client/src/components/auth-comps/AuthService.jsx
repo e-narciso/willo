@@ -9,25 +9,23 @@ class AuthService {
     this.service = service;
   }
 
-  loggedin = () => {
-    return this.service.get("/loggedin").then(response => response.data);
+  loggedin = async () => {
+    const response = await this.service.get("/loggedin");
+    return response.data;
   };
 
-  signup = (username, password) => {
-    return this.service
-      .post("/signup", { username, password })
-      .then(response => response.data);
+  signup = async (username, password) => {
+    const response = await this.service.post("/signup", { username, password });
+    return response.data;
   };
 
-  login = (username, password) => {
-    return this.service
-      .post("/login", { username, password })
-      .then(response => response.data);
+  login = async (username, password) => {
+    const response = await this.service.post("/login", { username, password });
+    return response.data;
   };
-  logout = ( ) => {
-    return this.service
-      .post("/logout", { })
-      .then(response => response.data);
+  logout = async () => {
+    const response = await this.service.post("/logout", {});
+    return response.data;
   };
 }
 

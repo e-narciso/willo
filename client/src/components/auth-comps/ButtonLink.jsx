@@ -1,12 +1,12 @@
-import React from 'react';
-import {Link} from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 
-const ButtonLink = () => {
-    return (
-        <button>
-          <Link to={`/${this.props.link}`}>{this.props.destination}</Link>
-        </button>
-    );
+const ButtonLink = props => {
+  return (
+    <Link to={`/${props.link}`}>
+      <button>{props.destination}</button>
+    </Link>
+  );
 };
 
 export default ButtonLink;

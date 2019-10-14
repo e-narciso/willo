@@ -1,13 +1,27 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-// import ButtonLink from "./auth-comps/ButtonLink";
+import ButtonLink from "./auth-comps/ButtonLink";
 // import Login from "./auth-comps/Login";
 // import Signup from "./auth-comps/Signup";
+// import API from "../api";
+// import UserBox from "./user-comps/UserBox";
 
-class Welcome extends Component {
-    
-  render() {
-    return (
+const Welcome = () => {
+  // const [users, setUsers] = useState([]);
+
+  // useEffect(() => {
+  //   getUsers();
+  // }, []);
+
+  // const getUsers = async () => {
+  //   const response = await API.get("users");
+  //   setUsers(response.data);
+  // };
+
+  // console.log(users);
+
+  return (
+    <div>
       <header className="App-header">
         {/* <img src={logo} className="App-logo" alt="logo" /> */}
         <h2>Willo</h2>
@@ -18,15 +32,29 @@ class Welcome extends Component {
           Your messages disappear, every interaction is a fresh start. <br />
           You're an ember in the woods, a will-o'-the-wisp.
         </p>
-        <button>
-          <Link to="/login">Log In</Link>
-        </button>
-        <button>
-          <Link to="/signup">Sign Up</Link>
-        </button>
+        <ButtonLink
+        link="login"
+        destination="Log In" />
+        <ButtonLink
+        link="signup"
+        destination="Sign Up" />
+        {/* <Link to="/signup">
+          <button>Sign Up</button>
+        </Link> */}
+        {/* <div className="userbox">
+        {users.map((each, i) => (
+          <UserBox
+            key={i}
+            image={each.image}
+            displayName={each.displayName}
+            username={each.username}
+            bio={each.bio}
+          />
+        ))}
+      </div> */}
       </header>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default Welcome;

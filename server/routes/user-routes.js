@@ -94,6 +94,17 @@ router.get("/loggedin", (req, res, next) => {
   res.status(403).json({ message: "Unauthorized" });
 });
 
+router.post("/profile", (req, res, next) => {
+  const { username, displayName } = req.body;
+
+  User.findByIdAndUpdate(req.user._id, {
+    username,
+    displayName
+  })
+    .then(user => res.status(200).json(user))
+    .catch(err => res.status(500).json(err));
+});
+
 router.get("/users", (req, res, next) => {
   User.find()
     .then(allUsers => {
