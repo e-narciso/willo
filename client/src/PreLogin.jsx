@@ -1,16 +1,44 @@
 import React, { Component } from "react";
 import Welcome from "./components/Welcome";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "./components/auth-comps/Login";
 import Signup from "./components/auth-comps/Signup";
 import AuthService from "./components/auth-comps/AuthService";
 
 class PreLogin extends Component {
   state = {
-    loggedInUser: null
+    user: {},
+    err: {}
   };
 
-  service = new AuthService();
+  componentDidMount() {
+    new AuthService()
+      .getUser()
+      .then(user => {
+        this.setUser(user);
+      })
+      .catch(err => {
+        console.error(err);
+        this.setState({ err });
+      });
+  }
+
+  setUser = user => {
+    console.log(user, '90909090909????')
+    this.setState({ user });
+  };
+
+  logOut = () => {
+    new AuthService().logout()
+      .then(res => {
+        this.setState({ user: {} });
+      })
+      .catch(err => {
+        this.setState({ err: err });
+      });
+  };
+
+  // service = new AuthService();
   render() {
     return (
       <div className="nuisance">
@@ -37,9 +65,28 @@ class PreLogin extends Component {
           <span></span>
         </div>
         <Switch>
-          <Route exact path="/" component={Welcome} />
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={Signup} />
+          <Route
+            exact
+            path="/"
+            render={props => (
+              <Welcome
+                {...props}
+                user={this.state.user}
+                setUser={this.setUser}
+                logOut={this.logOut}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/login"
+            render={props => <Login {...props} setUser={this.setUser} />}
+          />
+          <Route
+            exact
+            path="/signup"
+            render={props => <Signup {...props} setUser={this.setUser} />}
+          />
         </Switch>
       </div>
     );

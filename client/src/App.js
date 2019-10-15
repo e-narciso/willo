@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./App.scss";
+import AuthService from "./components/auth-comps/AuthService"
 // import Welcome from "./components/Welcome";
 // import { Switch, Route } from "react-router-dom";
 // import Login from "./components/auth-comps/Login";

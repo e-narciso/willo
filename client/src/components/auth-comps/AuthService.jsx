@@ -9,6 +9,12 @@ class AuthService {
     this.service = service;
   }
 
+  getUser = async () => {
+    const response = await this.service.get("/theUser");
+    console.log(response);
+    return response.data;
+  }
+
   loggedin = async () => {
     const response = await this.service.get("/loggedin");
     return response.data;

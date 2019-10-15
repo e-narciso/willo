@@ -2,6 +2,7 @@ const express = require("express");
 const passport = require("passport");
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
+const uploadCloud = require("../configs/cloudinary-settings");
 
 const router = express.Router();
 
@@ -94,12 +95,18 @@ router.get("/loggedin", (req, res, next) => {
   res.status(403).json({ message: "Unauthorized" });
 });
 
-router.post("/profile", (req, res, next) => {
-  const { username, displayName } = req.body;
+router.get("/theUser", (req, res, next) => {
+  return res.json(req.user);
+})
+
+router.post("/profile", uploadCloud.single("theImage"), (req, res, next) => {
+  const { displayName, bio } = req.body;
 
   User.findByIdAndUpdate(req.user._id, {
-    username,
-    displayName
+    // username,
+    displayName,
+    bio,
+    // image: req.file.url
   })
     .then(user => res.status(200).json(user))
     .catch(err => res.status(500).json(err));
@@ -182,5 +189,6 @@ router.post("/unfollow", (req, res, next) => {
     }
   });
 });
+
 
 module.exports = router;

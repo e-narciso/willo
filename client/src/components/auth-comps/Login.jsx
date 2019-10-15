@@ -19,11 +19,15 @@ class Login extends Component {
     this.service
       .login(username, password)
       .then(response => {
-        this.setState({
-          username: "",
-          password: ""
-        });
-        this.props.getUser(response);
+        console.log(response, '90909090')
+
+        this.props.setUser(response)
+        this.props.history.push('/');
+
+        // this.setState({
+        //   username: "",
+        //   password: ""
+        // });
       })
       .catch(error => console.log(error));
   };
@@ -37,8 +41,10 @@ class Login extends Component {
 
   render() {
     return (
-        <header className="App-header">
-        <h2>Willo</h2>
+      <header className="App-header">
+        <Link to="/">
+          <h2>Willo</h2>
+        </Link>
         <form onSubmit={this.handleFormSubmit}>
           <label>Username:</label>&nbsp;&nbsp;
           <input
@@ -47,7 +53,7 @@ class Login extends Component {
             value={this.state.username}
             onChange={e => this.handleChange(e)}
           />
-          <br/>
+          <br />
           <label>Password:</label>&nbsp;&nbsp;&nbsp;
           <input
             type="password"
@@ -55,7 +61,7 @@ class Login extends Component {
             value={this.state.password}
             onChange={e => this.handleChange(e)}
           />
-            <br/>
+          <br />
           <input type="submit" value="Login" />
         </form>
         <p>

@@ -17,7 +17,7 @@ require("./configs/database");
 // require("./configs/passport");
 
 mongoose
-  .connect("mongodb://localhost/server", { useNewUrlParser: true })
+  .connect("mongodb://localhost/willo", { useNewUrlParser: true })
   .then(x => {
     console.log(
       `Connected to Mongo! Database name: "${x.connections[0].name}"`
