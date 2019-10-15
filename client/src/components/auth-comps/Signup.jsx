@@ -17,7 +17,7 @@ class Signup extends Component {
       .signup(username, password)
       .then(response => {
         this.props.setUser(response)
-        this.props.history.push('/');
+        this.props.history.push('/dashboard');
       })
       .catch(err => {
         console.log(err);

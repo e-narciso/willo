@@ -77,6 +77,8 @@ app.use(
 
 require("./passport")(app);
 
+
+
 // app.use(passport.initialize());
 // app.use(passport.session());
 
@@ -92,34 +94,34 @@ app.use("/api", userRoutes);
 const wispRoutes = require("./routes/wisp-routes");
 app.use("/api", wispRoutes);
 
-// For any routes that starts with "/api", catch 404 and forward to error handler
-app.use("/api/*", (req, res, next) => {
-  let err = new Error("Not Found");
-  err.status = 404;
-  next(err);
-});
+// // For any routes that starts with "/api", catch 404 and forward to error handler
+// app.use("/api/*", (req, res, next) => {
+//   let err = new Error("Not Found");
+//   err.status = 404;
+//   next(err);
+// });
 
-// For any other routes, redirect to the index.html file of React
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/build/index.html"));
-});
+// // For any other routes, redirect to the index.html file of React
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "../client/build/index.html"));
+// });
 
-// Error handler
-app.use((err, req, res, next) => {
-  console.error("----- An error happened -----");
-  console.error(err);
+// // Error handler
+// app.use((err, req, res, next) => {
+//   console.error("----- An error happened -----");
+//   console.error(err);
 
-  // only render if the error ocurred before sending the response
-  if (!res.headersSent) {
-    res.status(err.status || 500);
+//   // only render if the error ocurred before sending the response
+//   if (!res.headersSent) {
+//     res.status(err.status || 500);
 
-    // A limited amount of information sent in production
-    if (process.env.NODE_ENV === "production") res.json(err);
-    else
-      res.json(
-        JSON.parse(JSON.stringify(err, Object.getOwnPropertyNames(err)))
-      );
-  }
-});
+//     // A limited amount of information sent in production
+//     if (process.env.NODE_ENV === "production") res.json(err);
+//     else
+//       res.json(
+//         JSON.parse(JSON.stringify(err, Object.getOwnPropertyNames(err)))
+//       );
+//   }
+// });
 
 module.exports = app;

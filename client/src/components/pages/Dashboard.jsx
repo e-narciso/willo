@@ -1,43 +1,38 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from "react";
+import WispBox from "../wisp-comps/WispBox";
+import AuthService from "../auth-comps/AuthService";
 
-class Dashboard extends Component {
-    state = {
-        wisps: {}
-    }
+const Dashboard = () => {
+  const [wisps, setWisps] = useState([]);
 
-    getWisps = async () => {
-        await axios.get("http://localhost:5000/dashboard")
-        .then(allTheWisps => {
-            this.setState({
-                wisps: allTheWisps
-            })
-        })
-    }
+  useEffect(() => {
+    getWisps();
+  }, []);
 
-    // if (user.following.length == 0){
-    //     return(
-    //         <div>
-    //             Follow some users!
-    //             <button>
-    //             <Link to="/users">User List</Link>
-    //             </button>
-    //         </div>
-    //     );
-    // } else {
-    //     return (
-    //         <div>
+  const getWisps = async () => {
+    const response = await new AuthService().getWisps();
+    setWisps(response);
+  };
 
-    //         </div>
-    //     )
-    // }
+  console.log(wisps);
 
-    render() {
-        return (
-            <div>
-                
-            </div>
-        );
-    }
-}
+  return (
+    <div className="App-header-2">
+      {/* {populateWisps()} */}
+      <h1>hello</h1>
+      <div>
+        {wisps.map((each, i) =>( 
+           <WispBox
+            key={i}
+            displayName={each.creator.displayName}
+            username={each.creator.username}
+            content={each.content}
+            image={each.creator.image}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
 
 export default Dashboard;

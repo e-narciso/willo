@@ -22,12 +22,7 @@ class Login extends Component {
         console.log(response, '90909090')
 
         this.props.setUser(response)
-        this.props.history.push('/');
-
-        // this.setState({
-        //   username: "",
-        //   password: ""
-        // });
+        this.props.history.push('/dashboard');
       })
       .catch(error => console.log(error));
   };

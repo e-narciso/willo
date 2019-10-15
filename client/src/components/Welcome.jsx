@@ -9,10 +9,6 @@ import ButtonLink from "./auth-comps/ButtonLink";
 import AuthService from "./auth-comps/AuthService";
 
 const Welcome = props => {
-  if(props.user.username){
-    // return props.history.push('/dashboard')
-    //return <Redirect to="/"/>
-  }
   // const [users, setUsers] = useState([]);
 
   // useEffect(() => {

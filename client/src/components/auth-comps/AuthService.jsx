@@ -11,7 +11,7 @@ class AuthService {
 
   getUser = async () => {
     const response = await this.service.get("/theUser");
-    console.log(response);
+    // console.log(response);
     return response.data;
   }
 
@@ -33,6 +33,12 @@ class AuthService {
     const response = await this.service.post("/logout", {});
     return response.data;
   };
+
+  getWisps = async () => {
+    const response = await this.service.get("/populate");
+    return response.data;
+  }
+
 }
 
 export default AuthService;
