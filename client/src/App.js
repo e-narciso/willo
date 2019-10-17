@@ -33,6 +33,10 @@ class App extends Component {
       });
   }
 
+  forceUpdate = () => {
+    this.setState()
+  }
+
   setUser = user => {
     console.log(user, "-=-=-=-=909????");
     this.setState({ user });
@@ -127,6 +131,7 @@ class App extends Component {
                 {...props}
                 user={this.state.user}
                 logOut={this.logOut}
+                forceUpdate={this.forceUpdate}
               />
             )}
           />

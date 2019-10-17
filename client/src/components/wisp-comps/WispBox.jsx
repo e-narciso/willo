@@ -6,7 +6,7 @@ const WispBox = props => {
         backgroundColor: "white",
         color: "black",
         border: "2px solid black",
-        width: "80vw",
+        width: "80%",
         textAlign: "left",
         lineHeight: "0.2vh",
         alignItems: "center",

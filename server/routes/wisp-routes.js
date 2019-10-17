@@ -11,17 +11,19 @@ function isLoggedIn(req, res, next) {
   }
 }
 
-function expire(req, res, next){
-    
-}
-
 router.post("/", (req, res, next) => {
-  let content = req.body.content;
-  let user = req.body.userID;
-  Wisp.create({
+  console.log('this is crazy', req.body.content, req.user, '09090')
+  // Wisp.create({
+  //   content: req.body.content,
+  //   creator: req.user._id
+  // })
+
+let w = {
     content: req.body.content,
-    creator: req.user._id
-  })
+    creator: req.user._id,
+  }
+
+  Wisp.create(w)
     .then(response => {
       res.json(response);
     })
@@ -29,6 +31,7 @@ router.post("/", (req, res, next) => {
       res.json(err);
     });
 });
+
 
 router.get("/populate", isLoggedIn, (req, res, next) => {
   console.log("user", req.user);

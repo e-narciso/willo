@@ -1,18 +1,49 @@
-import React from 'react';
-import AuthService from '../auth-comps/AuthService';
+import React, { Component } from "react";
+import AuthService from "../auth-comps/AuthService";
 
-const AddWisp = () => {
+class AddWisp extends Component {
+  state = {
+    content: ""
+  };
 
-    const addWisp = e =>{
-        e.preventDefault();
-        new AuthService()
-    }
+  handleFormSubmit = e => {
+    e.preventDefault();
+    // const userID = this.props.user._id;
+    const content = this.state.content;
+    // console.log(this.props)
+    new AuthService()
+      .makeWisp(content)
+      .then(response => {
+        //   console.log(this.state);
+        // this.setState({ content: "" });
+        // window.location.reload();
+      })
+      .catch(error => console.log(error));
+  };
 
+  handleChange = e => {
+    const { name, value } = e.target;
+    // console.log(e.target.value);
+    this.setState({
+      [name]: value
+    });
+  };
+
+  render() {
     return (
-        <div>
-            
-        </div>
+      <form onSubmit={this.handleFormSubmit}>
+        <label>What are you thinking?</label>
+        <br />
+        <textarea
+          type="text"
+          name="content"
+          value={this.state.content}
+          onChange={e => this.handleChange(e)}
+        ></textarea>
+        <input type="submit" value="Post" />
+      </form>
     );
-};
+  }
+}
 
 export default AddWisp;

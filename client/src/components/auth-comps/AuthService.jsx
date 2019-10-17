@@ -40,7 +40,9 @@ class AuthService {
   }
 
   getUsers = async () => {
+    console.log('09090;;;;')
     const response = await this.service.get("/users");
+    console.log(response, '09090909')
     return response.data;
   }
 
@@ -54,9 +56,10 @@ class AuthService {
     return response.data;
   }
 
-  makeWisp = async (content, userID) => {
-    const response = await this.service.post("/", {content, userID});
-    return response.data;
+  makeWisp = async (content) => {
+    const response = await this.service.post("/", {content});
+    console.log(response);
+    return response;
   }
 
 }
