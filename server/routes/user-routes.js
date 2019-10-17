@@ -97,31 +97,37 @@ router.get("/loggedin", (req, res, next) => {
 
 router.get("/theUser", (req, res, next) => {
   console.log("zomething, anything", req.user);
-  res.json(req.user)
+  res.json(req.user);
 });
 
-router.post('/upload', uploadCloud.single("image"), (req, res, next) => {
+router.post("/upload", uploadCloud.single("image"), (req, res, next) => {
   if (!req.file) {
-    next(new Error('No file uploaded!'));
+    next(new Error("No file uploaded!"));
     return;
   }
   res.json({ secure_url: req.file.secure_url });
-})
+});
 
-router.post("/profile/edit/:id", uploadCloud.single("image"), (req, res, next) => {
-  if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
-    res.status(400).json({ message: 'Specified id is not valid' });
-    return;
+router.post(
+  "/profile/edit/:id",
+  uploadCloud.single("image"),
+  (req, res, next) => {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      res.status(400).json({ message: "Specified id is not valid" });
+      return;
+    }
+
+    User.findByIdAndUpdate(req.params.id, req.body)
+      .then(() => {
+        res.json({
+          message: `User with ${req.params.id} is updated successfully.`
+        });
+      })
+      .catch(err => {
+        res.json(err);
+      });
   }
-  
-  User.findByIdAndUpdate(req.params.id, req.body)
-    .then(() => {
-      res.json({ message: `User with ${req.params.id} is updated successfully.` });
-    })
-    .catch(err => {
-      res.json(err);
-    })
-})
+);
 
 router.get("/users", (req, res, next) => {
   User.find()
@@ -134,11 +140,13 @@ router.get("/users", (req, res, next) => {
 });
 
 router.post("/follow", (req, res, next) => {
-  User.findOne({ username: req.body.username }, (err, user) => {
-    if (user.followers.includes(req.user._id)) {
+  let userID = req.body.userID;
+  let friendID = req.body.friendID;
+  User.findById(friendID, (err, user) => {
+    if (user.followers.includes(userID)) {
       res.status(500).json({ message: "You are already following this user" });
     } else {
-      user.followers.push(req.user._id);
+      user.followers.push(userID);
       let followedUser = user._id;
       user.save(err => {
         if (err) {
@@ -147,13 +155,13 @@ router.post("/follow", (req, res, next) => {
             .json({ message: "Something went wrong following user" });
           return;
         } else {
-          User.findOne({ username: req.user.username }, (err, user) => {
+          User.findById(userID, (err, user) => {
             user.following.push(followedUser);
             user.save(err => {
               if (err) {
                 res
                   .status(500)
-                  .json({ message: "Something went wrong unfollowing user" });
+                  .json({ message: "Something went wrong following user" });
                 return;
               } else {
                 res.status(200).json({ message: "Successfully followed user" });
@@ -167,11 +175,13 @@ router.post("/follow", (req, res, next) => {
 });
 
 router.post("/unfollow", (req, res, next) => {
-  User.findOne({ username: req.body.username }, (err, user) => {
-    if (!user.followers.includes(req.user._id)) {
+  let userID = req.body.userID;
+  let friendID = req.body.friendID;
+  User.findById(friendID, (err, user) => {
+    if (!user.followers.includes(userID)) {
       res.status(500).json({ message: "You are not following this user" });
     } else {
-      user.followers.splice(user.followers.indexOf(req.user._id), 1);
+      user.followers.splice(user.followers.indexOf(userID), 1);
       let unfollowedUser = user._id;
       user.save(err => {
         if (err) {
@@ -180,7 +190,7 @@ router.post("/unfollow", (req, res, next) => {
             .json({ message: "Something went wrong unfollowing user" });
           return;
         } else {
-          User.findOne({ username: req.user.username }, (err, user) => {
+          User.findById(userID, (err, user) => {
             user.following.splice(user.following.indexOf(unfollowedUser), 1);
             user.save(err => {
               if (err) {
@@ -200,6 +210,5 @@ router.post("/unfollow", (req, res, next) => {
     }
   });
 });
-
 
 module.exports = router;

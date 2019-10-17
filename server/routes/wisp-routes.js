@@ -16,6 +16,8 @@ function expire(req, res, next){
 }
 
 router.post("/", (req, res, next) => {
+  let content = req.body.content;
+  let user = req.body.userID;
   Wisp.create({
     content: req.body.content,
     creator: req.user._id

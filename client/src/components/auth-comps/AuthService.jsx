@@ -39,6 +39,26 @@ class AuthService {
     return response.data;
   }
 
+  getUsers = async () => {
+    const response = await this.service.get("/users");
+    return response.data;
+  }
+
+  follow = async (userID, friendID) => {
+    const response = await this.service.post("/follow", {userID, friendID});
+    return response.data;
+  }
+
+  unfollow = async (userID, friendID) => {
+    const response = await this.service.post("/unfollow", {userID, friendID});
+    return response.data;
+  }
+
+  makeWisp = async (content, userID) => {
+    const response = await this.service.post("/", {content, userID});
+    return response.data;
+  }
+
 }
 
 export default AuthService;
