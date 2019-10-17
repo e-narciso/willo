@@ -9,7 +9,7 @@ const wispSchema = new Schema(
 
   },
   {
-    timestamps: { createdAt: "created_at" }
+    timestamps: { createdAt: { type: Date, expires: 86400000, default: Date.now() } }
   },
 );
 

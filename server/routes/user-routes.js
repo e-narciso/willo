@@ -95,22 +95,34 @@ router.get("/loggedin", (req, res, next) => {
   res.status(403).json({ message: "Unauthorized" });
 });
 
-router.get("/theUser", (req, res, next) => {
-  return res.json(req.user);
+// router.get("/theUser", (req, res, next) => {
+//   User.findById(req.user._id){
+    
+//   }
+// })
+
+router.post('/upload', uploadCloud.single("image"), (req, res, next) => {
+  if (!req.file) {
+    next(new Error('No file uploaded!'));
+    return;
+  }
+  res.json({ secure_url: req.file.secure_url });
 })
 
-router.post("/profile", uploadCloud.single("theImage"), (req, res, next) => {
-  const { displayName, bio } = req.body;
-
-  User.findByIdAndUpdate(req.user._id, {
-    // username,
-    displayName,
-    bio,
-    // image: req.file.url
-  })
-    .then(user => res.status(200).json(user))
-    .catch(err => res.status(500).json(err));
-});
+router.post("/profile/edit/:id", uploadCloud.single("image"), (req, res, next) => {
+  if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    res.status(400).json({ message: 'Specified id is not valid' });
+    return;
+  }
+  
+  User.findByIdAndUpdate(req.params.id, req.body)
+    .then(() => {
+      res.json({ message: `User with ${req.params.id} is updated successfully.` });
+    })
+    .catch(err => {
+      res.json(err);
+    })
+})
 
 router.get("/users", (req, res, next) => {
   User.find()
