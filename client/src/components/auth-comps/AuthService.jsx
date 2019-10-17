@@ -3,7 +3,7 @@ import axios from "axios";
 class AuthService {
   constructor() {
     let service = axios.create({
-      baseURL: process.env.NODE_ENV === "production" ? "/api ": "http://localhost:5000/api",
+      baseURL: process.env.NODE_ENV === "production" ? "/api": "http://localhost:5000/api",
       withCredentials: true
     });
     this.service = service;
@@ -19,7 +19,7 @@ class AuthService {
     const response = await this.service.get("/loggedin");
     return response.data;
   };
-
+ 
   signup = async (username, password) => {
     const response = await this.service.post("/signup", { username, password });
     return response.data;

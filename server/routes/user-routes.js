@@ -95,12 +95,6 @@ router.get("/loggedin", (req, res, next) => {
   res.status(403).json({ message: "Unauthorized" });
 });
 
-// router.get("/theUser", (req, res, next) => {
-//   User.findById(req.user._id){
-    
-//   }
-// })
-
 router.post('/upload', uploadCloud.single("image"), (req, res, next) => {
   if (!req.file) {
     next(new Error('No file uploaded!'));

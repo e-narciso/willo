@@ -4,7 +4,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "./components/auth-comps/Login";
 import Signup from "./components/auth-comps/Signup";
 import AuthService from "./components/auth-comps/AuthService";
-import Dashboard from "./components/pages/Dashboard";
+// import Dashboard from "./components/pages/Dashboard";
 
 class PreLogin extends Component {
   state = {
@@ -12,39 +12,30 @@ class PreLogin extends Component {
     err: {}
   };
 
-  
-
-  componentDidMount() {
-    new AuthService()
-      .getUser()
-      .then(user => {
-        this.setUser(user);
-      })
-      .catch(err => {
-        console.error(err);
-        this.setState({ err });
-      });
-  }
+  // componentDidMount() {
+  //   new AuthService()
+  //     .getUser()
+  //     .then(user => {
+  //       this.setUser(user);
+  //     })
+  //     .catch(err => {
+  //       console.error(err);
+  //       this.setState({ err });
+  //     });
+  // }
 
   setUser = user => {
     console.log(user, "90909090909????");
-    this.setState({ user });
+    this.props.setUser(user);
   };
 
   logOut = () => {
-    new AuthService()
-      .logout()
-      .then(res => {
-        this.setState({ user: {} });
-      })
-      .catch(err => {
-        this.setState({ err: err });
-      });
+    this.props.logOut();
   };
 
   // service = new AuthService();
   render() {
-    if (!this.state.user) {
+    // if (!this.state.user) {
       return (
         <div className="nuisance">
           <div className="background">
@@ -95,16 +86,16 @@ class PreLogin extends Component {
           </Switch>
         </div>
       );
-    } else {
+  //   } else {
       
-      return (
-        <Switch>
-          <Route exact path="/dashboard" component={Dashboard} />
-          {/* <Route exact path="/edit-profile" component={Profile} />
-          <Route exact path="/find-users" component={Users} /> */}
-        </Switch>
-      );
-    }
+  //     return (
+  //       <Switch>
+  //         <Route exact path="/dashboard" component={Dashboard} />
+  //         {/* <Route exact path="/edit-profile" component={Profile} />
+  //         <Route exact path="/find-users" component={Users} /> */}
+  //       </Switch>
+  //     );
+  //   }
   }
 }
 
