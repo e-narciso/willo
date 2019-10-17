@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import WispBox from "../wisp-comps/WispBox";
 import AuthService from "../auth-comps/AuthService";
 
-const Dashboard = () => {
+const Dashboard = props => {
   const [wisps, setWisps] = useState([]);
 
   useEffect(() => {
@@ -14,12 +14,13 @@ const Dashboard = () => {
     setWisps(response);
   };
 
-  console.log(wisps);
+  // console.log(wisps);
+  console.log(props);
 
   return (
     <div className="App-header-2">
       {/* {populateWisps()} */}
-      <h1>hello</h1>
+      <h1>hello {props.user.username}</h1>
       <div>
         {wisps.map((each, i) =>( 
            <WispBox
@@ -31,6 +32,7 @@ const Dashboard = () => {
           />
         ))}
       </div>
+      <button onClick={props.logOut}>log out</button>
     </div>
   );
 };

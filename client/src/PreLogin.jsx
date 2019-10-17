@@ -29,9 +29,9 @@ class PreLogin extends Component {
     this.props.setUser(user);
   };
 
-  logOut = () => {
-    this.props.logOut();
-  };
+  // logOut = () => {
+  //   this.props.logOut();
+  // };
 
   // service = new AuthService();
   render() {
@@ -69,7 +69,7 @@ class PreLogin extends Component {
                   {...props}
                   user={this.state.user}
                   setUser={this.setUser}
-                  logOut={this.logOut}
+                  // logOut={this.logOut}
                 />
               )}
             />

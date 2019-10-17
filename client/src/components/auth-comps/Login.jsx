@@ -19,7 +19,7 @@ class Login extends Component {
     this.service
       .login(username, password)
       .then(response => {
-        console.log(response, '90909090')
+        // console.log(response, '90909090')
 
         this.props.setUser(response)
         this.props.history.push('/dashboard');

@@ -8,12 +8,18 @@ import AuthService from "./components/auth-comps/AuthService";
 // import AuthService from "./components/auth-comps/AuthService";
 import PreLogin from "./PreLogin";
 import LoggedIn from "./LoggedIn";
+import { Redirect } from "react-router-dom";
+import Dashboard from "./components/pages/Dashboard";
 
 class App extends Component {
-  state = {
-    user: {},
-    err: {}
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {},
+      err: {}
+    };
+    this.service = new AuthService();
+  }
 
   setUser = user => {
     console.log(user, "90909090909????");
@@ -21,7 +27,7 @@ class App extends Component {
   };
 
   logOut = () => {
-    new AuthService()
+    this.service
       .logout()
       .then(res => {
         this.setState({ user: {} });
@@ -31,21 +37,20 @@ class App extends Component {
       });
   };
 
-  // service = new AuthService();
   render() {
     if (!this.state.user.username) {
-      console.log(this.state)
+      console.log(this.state);
       return (
         <div className="App">
-          <LoggedIn />
-          <PreLogin setUser={this.setUser} logOut={this.logOut} />
+          <PreLogin setUser={this.setUser} />
         </div>
       );
     } else {
-      console.log(this.state)
+      console.log(this.state);
       return (
         <div className="App">
-          <LoggedIn />
+          <Dashboard user={this.state.user} logOut={this.logOut} />
+          {/* <p>This is Home</p> */}
         </div>
       );
     }
