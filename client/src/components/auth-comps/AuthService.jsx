@@ -11,7 +11,7 @@ class AuthService {
 
   getUser = async () => {
     const response = await this.service.get("/theUser");
-    // console.log(response);
+    console.log(response);
     return response.data;
   }
 

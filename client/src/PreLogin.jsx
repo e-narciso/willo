@@ -35,6 +35,7 @@ class PreLogin extends Component {
 
   // service = new AuthService();
   render() {
+    console.log(this)
     // if (!this.state.user) {
       return (
         <div className="nuisance">

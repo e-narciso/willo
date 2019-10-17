@@ -14,6 +14,12 @@ const Dashboard = props => {
     setWisps(response);
   };
 
+  const logOut = () => {
+    console.log(props)
+    props.logOut()//.then(res=>console.log(res, this))
+    props.history.push('/')
+  }
+
   // console.log(wisps);
   console.log(props);
 
@@ -32,7 +38,7 @@ const Dashboard = props => {
           />
         ))}
       </div>
-      <button onClick={props.logOut}>log out</button>
+      <button onClick={logOut}>log out</button>
     </div>
   );
 };
