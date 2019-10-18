@@ -6,7 +6,7 @@ const UserBox = props => {
   console.log(props)
   if(!props.loggedInUser){ return }
   const style = {
-    backgroundColor: "white",
+    backgroundColor: "#f7f7f7",
     color: "black",
     border: "2px solid black",
     // width: "80%",

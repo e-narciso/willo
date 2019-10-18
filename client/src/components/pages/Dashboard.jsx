@@ -75,7 +75,7 @@ class Dashboard extends Component {
                 ))}
               </div>
             </div>
-            <div className="col-4">
+            <div className="col-6">
               <h2>Wisps</h2>
 
               {this.state.wisps.map((each, i) => (
@@ -88,7 +88,7 @@ class Dashboard extends Component {
                 />
               ))}
             </div>
-            <div className="col-4">
+            <div className="col-2">
               <h2>Edit</h2>
               <Profile loggedInUser={this.props.user} setUser={this.props.setUser}/>
             </div>

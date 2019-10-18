@@ -3,10 +3,10 @@ import ToggleFollow from "../user-comps/ToggleFollow";
 
 const WispBox = props => {
     const style = {
-        backgroundColor: "white",
+        backgroundColor: "#f7f7f7",
         color: "black",
         border: "2px solid black",
-        width: "80%",
+        // width: "100%",
         textAlign: "left",
         lineHeight: "0.2vh",
         alignItems: "center",
