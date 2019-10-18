@@ -3,6 +3,8 @@ import style from "./userbox.module.css";
 import AuthService from "../auth-comps/AuthService";
 
 const UserBox = props => {
+  console.log(props)
+  if(!props.loggedInUser){ return }
   const style = {
     backgroundColor: "white",
     color: "black",
@@ -20,7 +22,7 @@ const UserBox = props => {
 
   const buttonStyle = {
     fontSize: "14px"
-  }
+  };
 
   const addFriend = e => {
     let userID = props.loggedInUser._id;
@@ -28,9 +30,9 @@ const UserBox = props => {
     new AuthService()
       .follow(userID, friendID)
       .then(response => {
-        // window.location.reload();
-        console.log(props);
-        props.forceUpdate()
+        window.location.reload();
+        // console.log(props);
+        props.getUsers();
         //window.p = props
         //props.history.push("/dashboard")
       })
@@ -44,8 +46,8 @@ const UserBox = props => {
       .unfollow(userID, friendID)
       .then(response => {
         // props.history.push("/dashboard")
-        console.log(props.forceUpdate)
-        props.forceUpdate()
+        window.location.reload();
+        props.getUsers();
       })
       .catch(err => console.log(err));
   };
@@ -55,9 +57,18 @@ const UserBox = props => {
       return;
     }
     if (props.loggedInUser.following.includes(props.friend._id)) {
-      return <button style={buttonStyle} onClick={() => removeFriend()}>Unfollow</button>;
+    // if (props) {
+      return (
+        <button style={buttonStyle} onClick={() => removeFriend()}>
+          Unfollow
+        </button>
+      );
     } else {
-      return <button style={buttonStyle} onClick={() => addFriend()}>Follow</button>;
+      return (
+        <button style={buttonStyle} onClick={() => addFriend()}>
+          Follow
+        </button>
+      );
     }
   };
 

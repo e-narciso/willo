@@ -14,6 +14,7 @@ class AddWisp extends Component {
     new AuthService()
       .makeWisp(content)
       .then(response => {
+        window.location.reload();
         //   console.log(this.state);
         // this.setState({ content: "" });
         // window.location.reload();

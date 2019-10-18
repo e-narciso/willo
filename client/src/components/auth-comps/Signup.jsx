@@ -33,6 +33,29 @@ class Signup extends Component {
 
   render() {
     return (
+      <div className="nuisance">
+        <div className="background">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
       <header className="App-header">
         <Link to="/">
           <h2>Willo</h2>
@@ -61,6 +84,7 @@ class Signup extends Component {
           <Link to={"/login"}>Login</Link>
         </p>
       </header>
+      </div>
     );
   }
 }

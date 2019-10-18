@@ -12,16 +12,11 @@ function isLoggedIn(req, res, next) {
 }
 
 router.post("/", (req, res, next) => {
-  console.log('this is crazy', req.body.content, req.user, '09090')
-  // Wisp.create({
-  //   content: req.body.content,
-  //   creator: req.user._id
-  // })
-
-let w = {
+  console.log("this is crazy", req.body.content, req.user, "09090");
+  let w = {
     content: req.body.content,
-    creator: req.user._id,
-  }
+    creator: req.user._id
+  };
 
   Wisp.create(w)
     .then(response => {
@@ -32,13 +27,13 @@ let w = {
     });
 });
 
-
 router.get("/populate", isLoggedIn, (req, res, next) => {
   console.log("user", req.user);
   Wisp.find({
     $or: [{ creator: { $in: req.user.following } }, { creator: req.user._id }]
   })
     .populate("creator")
+    .sort({ createdAt: -1 })
     .then(allTheWisps => {
       console.log("allTheWisps", allTheWisps);
       res.json(allTheWisps);

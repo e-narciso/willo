@@ -11,7 +11,7 @@ class AuthService {
 
   getUser = async () => {
     const response = await this.service.get("/theUser");
-    console.log(response);
+    // console.log(response);
     return response.data;
   }
 
@@ -25,14 +25,30 @@ class AuthService {
     return response.data;
   };
 
+  edit = async (args) => {
+    const response = await this.service.post("/profile/edit", {args});
+    return response.data;
+  }
+
   login = async (username, password) => {
     const response = await this.service.post("/login", { username, password });
     return response.data;
   };
+
   logout = async () => {
     const response = await this.service.post("/logout", {});
     return response.data;
   };
+
+  async handleUpload (theFile) {
+    try {
+      const response = await this.service.post('/upload', theFile);
+      return response.data;
+    }
+    catch (err) {
+      return console.log(err);
+    }
+  }
 
   getWisps = async () => {
     const response = await this.service.get("/populate");
@@ -40,9 +56,9 @@ class AuthService {
   }
 
   getUsers = async () => {
-    console.log('09090;;;;')
+    // console.log('09090;;;;')
     const response = await this.service.get("/users");
-    console.log(response, '09090909')
+    // console.log(response, '09090909')
     return response.data;
   }
 
@@ -58,7 +74,7 @@ class AuthService {
 
   makeWisp = async (content) => {
     const response = await this.service.post("/", {content});
-    console.log(response);
+    // console.log(response);
     return response;
   }
 

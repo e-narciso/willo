@@ -1,21 +1,23 @@
 // import React, { useState, useEffect } from "react";
+import React, { Component } from "react";
+import {Redirect} from 'react-router-dom';
 import WispBox from "../wisp-comps/WispBox";
 import AuthService from "../auth-comps/AuthService";
 import UserBox from "../user-comps/UserBox";
 import AddWisp from "../wisp-comps/AddWisp";
-import React, { Component } from "react";
-
+import Profile from "../pages/Profile";
 class Dashboard extends Component {
   state = {
     users: [],
-    wisps: []
+    wisps: [],
+    logout: false
   };
 
-  componentDidMount(){
-    this.getUsers()
-    this.getWisps()
+  componentDidMount() {
+    this.getUsers();
+    this.getWisps();
   }
-  getWisps() {
+  getWisps = () => {
     new AuthService()
       .getWisps()
       .then(theWisps => {
@@ -26,12 +28,11 @@ class Dashboard extends Component {
       .catch(err => {
         console.log(err);
       });
-  }
-  getUsers() {
+  };
+  getUsers = () => {
     new AuthService()
       .getUsers()
       .then(theUsers => {
-        console.log(theUsers)
         this.setState({
           users: theUsers
         });
@@ -39,37 +40,44 @@ class Dashboard extends Component {
       .catch(err => {
         console.log(err);
       });
-  }
-  // logOut = () => {
-  //   this.props.logOut(); //.then(res=>console.log(res, this))
-  //   this.props.history.push("/");
-  // };
+  };
+  logOut = () => {
+    this.props.logOut();
+    this.setState({
+      logout:true
+    })
+    // this.props.history.push("/");
+  };
   render() {
-    console.log(this.state)
+    console.log(this.props.history)
+    if(this.state.logout){
+      return <Redirect to='/'/>
+    }
     return (
       <div className="App-header-2">
-        {/* {populateWisps()} */}
-        <h1>hello</h1>
+        <h1>hello {this.props.user.username}</h1>
+        <button onClick={this.logOut}>log out</button>
+        <AddWisp user={this.props.user} />
         <div className="container">
           <div className="row">
-            {/* <div className="col-4">
+            <div className="col-4">
               <h2>Users</h2>
               <div className="container">
-                {this.state.users.map((each, i) => {
-                  return (
-                    <UserBox
-                      key={i}
-                      friend={each}
-                      loggedInUser={this.props.user}
-                      {...props}
-                      forceUpdate={() => getUsers()}
-                    />
-                  );
-                })}
+                {this.state.users.map((each, i) => (
+                  <UserBox
+                    key={i}
+                    friend={each}
+                    loggedInUser={this.props.user}
+                    {...this.props}
+                    getUsers={this.getUsers}
+                    // forceUpdate={() => getUsers()}
+                  />
+                ))}
               </div>
-            </div> */}
+            </div>
             <div className="col-4">
               <h2>Wisps</h2>
+
               {this.state.wisps.map((each, i) => (
                 <WispBox
                   key={i}
@@ -80,16 +88,17 @@ class Dashboard extends Component {
                 />
               ))}
             </div>
-            <div className="col-4">Edit</div>
+            <div className="col-4">
+              <h2>Edit</h2>
+              <Profile loggedInUser={this.props.user} setUser={this.props.setUser}/>
+            </div>
           </div>
         </div>
-        <AddWisp user={this.props.user} />
-        <button onClick={this.props.logOut}>log out</button> */}
       </div>
     );
   }
 }
-
+ 
 export default Dashboard;
 
 // const Dashboard = props => {

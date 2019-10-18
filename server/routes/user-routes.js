@@ -1,10 +1,19 @@
 const express = require("express");
 const passport = require("passport");
+const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const uploadCloud = require("../configs/cloudinary-settings");
 
 const router = express.Router();
+
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    next();
+  } else {
+    res.status(403).json({ message: "not logged in" });
+  }
+}
 
 router.post("/signup", (req, res, next) => {
   const username = req.body.username;
@@ -109,19 +118,18 @@ router.post("/upload", uploadCloud.single("image"), (req, res, next) => {
 });
 
 router.post(
-  "/profile/edit/:id",
-  uploadCloud.single("image"),
+  "/profile/edit",
+  [uploadCloud.single("image"), isLoggedIn],
   (req, res, next) => {
-    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-      res.status(400).json({ message: "Specified id is not valid" });
-      return;
-    }
+    // if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    //   res.status(400).json({ message: "Specified id is not valid" });
+    //   return;
+    // }
+    console.log("in here", req.body.args);
 
-    User.findByIdAndUpdate(req.params.id, req.body)
-      .then(() => {
-        res.json({
-          message: `User with ${req.params.id} is updated successfully.`
-        });
+    User.findByIdAndUpdate(req.user._id, req.body.args, { new: true })
+      .then(user => {
+        res.json(user);
       })
       .catch(err => {
         res.json(err);

@@ -25,6 +25,7 @@ class App extends Component {
     new AuthService()
       .getUser()
       .then(user => {
+        console.log(user)
         this.setUser(user);
       })
       .catch(err => {
@@ -33,12 +34,7 @@ class App extends Component {
       });
   }
 
-  forceUpdate = () => {
-    this.setState()
-  }
-
   setUser = user => {
-    console.log(user, "-=-=-=-=909????");
     this.setState({ user });
   };
 
@@ -48,7 +44,6 @@ class App extends Component {
       .then(res => {
         this.setState({ user: {} });
         return res;
-        //console.log(this);
       })
       .catch(err => {
         this.setState({ err: err });
@@ -56,50 +51,8 @@ class App extends Component {
   };
 
   render() {
-    // console.log(this)
-    // if (!this.state.user.username) {
-    //   console.log(this.state);
-    //   return (
-    //     <div className="App">
-    //       {/* <PreLogin setUser={this.setUser} /> */}
-    //       <Redirect to="/" />
-    //     </div>
-    //   );
-    // } else {
-    //   console.log(this.state);
-    //   return (
-    //     <div className="App">
-    //       <Redirect to="/dashboard" />
-
-    //       {/* <Dashboard user={this.state.user} logOut={this.logOut} {...this.props} /> */}
-    //       {/* <p>This is Home</p> */}
-    //     </div>
-    //   );
-    // }
     return (
-      <div className="nuisance">
-        <div className="background">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+      <div>
         <Switch>
           <Route
             exact
@@ -109,7 +62,6 @@ class App extends Component {
                 {...props}
                 user={this.state.user}
                 setUser={this.setUser}
-                // logOut={this.logOut}
               />
             )}
           />
@@ -131,7 +83,7 @@ class App extends Component {
                 {...props}
                 user={this.state.user}
                 logOut={this.logOut}
-                forceUpdate={this.forceUpdate}
+                setUser={this.setUser}
               />
             )}
           />

@@ -1,31 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
 import ButtonLink from "./auth-comps/ButtonLink";
-// import Login from "./auth-comps/Login";
-// import Signup from "./auth-comps/Signup";
-// import API from "../api";
-// import UserBox from "./user-comps/UserBox";
-// import WispBox from "./wisp-comps/WispBox";
 import AuthService from "./auth-comps/AuthService";
 
 const Welcome = props => {
-  // const [users, setUsers] = useState([]);
-
-  // useEffect(() => {
-  //   getUsers();
-  // }, []);
-
-  // const getUsers = async () => {
-  //   const response = await API.get("users");
-  //   setUsers(response.data);
-  // };
-  
-  // console.log(users);
- 
   return (
-    <div>
+    <div className="nuisance">
+        <div className="background">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
       <header className="App-header">
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
         <Link to="/">
           <h2>Willo {props.user.username}</h2> 
         </Link>
@@ -38,27 +41,6 @@ const Welcome = props => {
         </p>
         <ButtonLink link="login" destination="Log In" />
         <ButtonLink link="signup" destination="Sign Up" />
-        <button onClick={props.logOut}>log out</button>
-        {/* <WispBox 
-          image="http://3.bp.blogspot.com/-GEpcgrulbYY/VVkljtmQlMI/AAAAAAAAAig/Nietx4sz2tI/s1600/Willow_the_wispBArrowsuch5.png"
-          username="username"
-          displayName = "Display Name"
-          content = "this is what a wisp looks like"
-        /> */}
-        {/* <Link to="/signup">
-          <button>Sign Up</button>
-        </Link> */}
-        {/* <div className="userbox">
-        {users.map((each, i) => (
-          <UserBox
-            key={i}
-            image={each.image}
-            displayName={each.displayName}
-            username={each.username}
-            bio={each.bio}
-          />
-        ))}
-      </div> */}
       </header>
     </div>
   );
