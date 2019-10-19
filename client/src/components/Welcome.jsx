@@ -30,7 +30,7 @@ const Welcome = props => {
         </div>
       <header className="App-header">
         <Link to="/">
-          <h2>Willo {props.user.username}</h2> 
+          <h2>Willo</h2> 
         </Link>
         <p>
           Welcome to Willo, a very tiny social network. <br />
